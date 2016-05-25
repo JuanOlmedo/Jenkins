@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoUsuarioEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditTipoUsuarioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TipoUsuarioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoUsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{tipoUsuarioController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditTipoUsuarioLabel_tiusCodigo}" for="tiusCodigo" />
+                            <h:outputText id="tiusCodigo" value="#{tipoUsuarioController.selected.tiusCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoUsuarioLabel_tiusNombre}" for="tiusNombre" />
+                            <p:inputText id="tiusNombre" value="#{tipoUsuarioController.selected.tiusNombre}" title="#{propiedades.EditTipoUsuarioTitle_tiusNombre}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoUsuarioLabel_tiusTiempoReserva}" for="tiusTiempoReserva" />
+                            <p:inputText id="tiusTiempoReserva" value="#{tipoUsuarioController.selected.tiusTiempoReserva}" title="#{propiedades.EditTipoUsuarioTitle_tiusTiempoReserva}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoUsuarioLabel_tiusTiempoEntrega}" for="tiusTiempoEntrega" />
+                            <p:inputText id="tiusTiempoEntrega" value="#{tipoUsuarioController.selected.tiusTiempoEntrega}" title="#{propiedades.EditTipoUsuarioTitle_tiusTiempoEntrega}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoUsuarioLabel_tiusValorMulta}" for="tiusValorMulta" />
+                            <p:inputText id="tiusValorMulta" value="#{tipoUsuarioController.selected.tiusValorMulta}" title="#{propiedades.EditTipoUsuarioTitle_tiusValorMulta}" size="45" maxlength="45"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{tipoUsuarioController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:TipoUsuarioListPage:TipoUsuarioListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:TipoUsuarioListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

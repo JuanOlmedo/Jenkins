@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AutorViewDlg" widgetVar="AutorViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewAutorTitle}" closeOnEscape="true">
+
+            <h:form id="AutorViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{autorController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewAutorLabel_autorCodigo}"/>
+                        <h:outputText value="#{autorController.selected.autorCodigo}" title="#{propiedades.ViewAutorTitle_autorCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewAutorLabel_autorNombre}"/>
+                        <h:outputText value="#{autorController.selected.autorNombre}" title="#{propiedades.ViewAutorTitle_autorNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewAutorLabel_autorDescripcion}"/>
+                        <h:outputText value="#{autorController.selected.autorDescripcion}" title="#{propiedades.ViewAutorTitle_autorDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('AutorViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

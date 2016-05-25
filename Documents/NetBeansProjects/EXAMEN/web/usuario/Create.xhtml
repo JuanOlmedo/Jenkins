@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userNombre}" for="userNombre" />
+                        <p:inputText id="userNombre" value="#{usuarioController.selected.userNombre}" title="#{propiedades.CreateUsuarioTitle_userNombre}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userApellido}" for="userApellido" />
+                        <p:inputText id="userApellido" value="#{usuarioController.selected.userApellido}" title="#{propiedades.CreateUsuarioTitle_userApellido}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userMail}" for="userMail" />
+                        <p:inputText id="userMail" value="#{usuarioController.selected.userMail}" title="#{propiedades.CreateUsuarioTitle_userMail}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userTelefono}" for="userTelefono" />
+                        <p:inputText id="userTelefono" value="#{usuarioController.selected.userTelefono}" title="#{propiedades.CreateUsuarioTitle_userTelefono}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userDierccion}" for="userDierccion" />
+                        <p:inputText id="userDierccion" value="#{usuarioController.selected.userDierccion}" title="#{propiedades.CreateUsuarioTitle_userDierccion}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userUsername}" for="userUsername" />
+                        <p:inputText id="userUsername" value="#{usuarioController.selected.userUsername}" title="#{propiedades.CreateUsuarioTitle_userUsername}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_userPassword}" for="userPassword" />
+                        <p:inputText id="userPassword" value="#{usuarioController.selected.userPassword}" title="#{propiedades.CreateUsuarioTitle_userPassword}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateUsuarioLabel_tipoUsuarioTiusCodigo}" for="tipoUsuarioTiusCodigo" />
+                        <p:selectOneMenu id="tipoUsuarioTiusCodigo" value="#{usuarioController.selected.tipoUsuarioTiusCodigo}" required="true" requiredMessage="#{propiedades.CreateUsuarioRequiredMessage_tipoUsuarioTiusCodigo}" converter="tipoUsuarioConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoUsuarioController.items}"
+                                           var="tipoUsuarioTiusCodigoItem"
+                                           itemValue="#{tipoUsuarioTiusCodigoItem}"
+                                           itemLabel="#{tipoUsuarioTiusCodigoItem.tiusNombre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{propiedades.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('UsuarioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

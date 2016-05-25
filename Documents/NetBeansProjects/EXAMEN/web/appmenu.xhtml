@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{propiedades.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{propiedades.Maintenance}">
+                    <p:menuitem value="#{propiedades.AreaHeading}..." outcome="/area/index" />
+                    <p:menuitem value="#{propiedades.AutorHeading}..." outcome="/autor/index" />
+                    <p:menuitem value="#{propiedades.BibliografiaHeading}..." outcome="/bibliografia/index" />
+                    <p:menuitem value="#{propiedades.DetalleBiblioFacuHeading}..." outcome="/detalleBiblioFacu/index" />
+                    <p:menuitem value="#{propiedades.DetallePrestamoHeading}..." outcome="/detallePrestamo/index" />
+                    <p:menuitem value="#{propiedades.FacultadHeading}..." outcome="/facultad/index" />
+                    <p:menuitem value="#{propiedades.PrestamoHeading}..." outcome="/prestamo/index" />
+                    <p:menuitem value="#{propiedades.TipoBibliografiaHeading}..." outcome="/tipoBibliografia/index" />
+                    <p:menuitem value="#{propiedades.TipoUsuarioHeading}..." outcome="/tipoUsuario/index" />
+                    <p:menuitem value="#{propiedades.UsuarioHeading}..." outcome="/usuario/index" />
+                </p:submenu>
+                <p:menuitem value="#{propiedades.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

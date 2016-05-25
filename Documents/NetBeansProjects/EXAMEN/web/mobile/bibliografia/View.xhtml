@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="BibliografiaViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewBibliografiaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:BibliografiaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="BibliografiaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{bibliografiaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblCodigo}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblCodigo}" title="#{propiedades.ViewBibliografiaTitle_biblCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblTitulo}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblTitulo}" title="#{propiedades.ViewBibliografiaTitle_biblTitulo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblEditorial}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblEditorial}" title="#{propiedades.ViewBibliografiaTitle_biblEditorial}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblFechaPublicacion}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblFechaPublicacion}" title="#{propiedades.ViewBibliografiaTitle_biblFechaPublicacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblIdioma}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblIdioma}" title="#{propiedades.ViewBibliografiaTitle_biblIdioma}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_biblDescripcion}"/>
+                            <h:outputText value="#{bibliografiaController.selected.biblDescripcion}" title="#{propiedades.ViewBibliografiaTitle_biblDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_autorAutorCodigo}"/>
+                            <h:outputText value="#{bibliografiaController.selected.autorAutorCodigo.autorDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_areaAreaCodigo}"/>
+                            <h:outputText value="#{bibliografiaController.selected.areaAreaCodigo.areaCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewBibliografiaLabel_tipoBibliografiaTibiCodigo}"/>
+                            <h:outputText value="#{bibliografiaController.selected.tipoBibliografiaTibiCodigo.tibiCodigo}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

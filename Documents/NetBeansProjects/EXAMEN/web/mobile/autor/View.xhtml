@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AutorViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewAutorTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AutorListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AutorViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{autorController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAutorLabel_autorCodigo}"/>
+                            <h:outputText value="#{autorController.selected.autorCodigo}" title="#{propiedades.ViewAutorTitle_autorCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAutorLabel_autorNombre}"/>
+                            <h:outputText value="#{autorController.selected.autorNombre}" title="#{propiedades.ViewAutorTitle_autorNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAutorLabel_autorDescripcion}"/>
+                            <h:outputText value="#{autorController.selected.autorDescripcion}" title="#{propiedades.ViewAutorTitle_autorDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

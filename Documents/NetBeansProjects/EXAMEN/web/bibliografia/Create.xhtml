@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BibliografiaCreateDlg" widgetVar="BibliografiaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateBibliografiaTitle}" closeOnEscape="true">
+
+            <h:form id="BibliografiaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{bibliografiaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_biblTitulo}" for="biblTitulo" />
+                        <p:inputText id="biblTitulo" value="#{bibliografiaController.selected.biblTitulo}" title="#{propiedades.CreateBibliografiaTitle_biblTitulo}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_biblEditorial}" for="biblEditorial" />
+                        <p:inputText id="biblEditorial" value="#{bibliografiaController.selected.biblEditorial}" title="#{propiedades.CreateBibliografiaTitle_biblEditorial}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_biblFechaPublicacion}" for="biblFechaPublicacion" />
+                        <p:calendar id="biblFechaPublicacion" pattern="MM/dd/yyyy" value="#{bibliografiaController.selected.biblFechaPublicacion}" title="#{propiedades.CreateBibliografiaTitle_biblFechaPublicacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_biblIdioma}" for="biblIdioma" />
+                        <p:inputText id="biblIdioma" value="#{bibliografiaController.selected.biblIdioma}" title="#{propiedades.CreateBibliografiaTitle_biblIdioma}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_biblDescripcion}" for="biblDescripcion" />
+                        <p:inputText id="biblDescripcion" value="#{bibliografiaController.selected.biblDescripcion}" title="#{propiedades.CreateBibliografiaTitle_biblDescripcion}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_autorAutorCodigo}" for="autorAutorCodigo" />
+                        <p:selectOneMenu id="autorAutorCodigo" value="#{bibliografiaController.selected.autorAutorCodigo}" required="true" requiredMessage="#{propiedades.CreateBibliografiaRequiredMessage_autorAutorCodigo}" converter="autorConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{autorController.items}"
+                                           var="autorAutorCodigoItem"
+                                           itemValue="#{autorAutorCodigoItem}"
+                                           itemLabel="#{autorAutorCodigoItem.autorCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_areaAreaCodigo}" for="areaAreaCodigo" />
+                        <p:selectOneMenu id="areaAreaCodigo" value="#{bibliografiaController.selected.areaAreaCodigo}" required="true" requiredMessage="#{propiedades.CreateBibliografiaRequiredMessage_areaAreaCodigo}" converter="areaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{areaController.items}"
+                                           var="areaAreaCodigoItem"
+                                           itemValue="#{areaAreaCodigoItem}"
+                                           itemLabel="#{areaAreaCodigoItem.areaCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateBibliografiaLabel_tipoBibliografiaTibiCodigo}" for="tipoBibliografiaTibiCodigo" />
+                        <p:selectOneMenu id="tipoBibliografiaTibiCodigo" value="#{bibliografiaController.selected.tipoBibliografiaTibiCodigo}" required="true" requiredMessage="#{propiedades.CreateBibliografiaRequiredMessage_tipoBibliografiaTibiCodigo}" converter="tipoBibliografiaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoBibliografiaController.items}"
+                                           var="tipoBibliografiaTibiCodigoItem"
+                                           itemValue="#{tipoBibliografiaTibiCodigoItem}"
+                                           itemLabel="#{tipoBibliografiaTibiCodigoItem.tibiCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bibliografiaController.saveNew}" value="#{propiedades.Save}" update="display,:BibliografiaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('BibliografiaCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('BibliografiaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleBiblioFacuCreateDlg" widgetVar="DetalleBiblioFacuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateDetalleBiblioFacuTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleBiblioFacuCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalleBiblioFacuController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_dtbfStock}" for="dtbfStock" />
+                        <p:inputText id="dtbfStock" value="#{detalleBiblioFacuController.selected.dtbfStock}" title="#{propiedades.CreateDetalleBiblioFacuTitle_dtbfStock}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_dtbfEstado}" for="dtbfEstado" />
+                        <p:inputText id="dtbfEstado" value="#{detalleBiblioFacuController.selected.dtbfEstado}" title="#{propiedades.CreateDetalleBiblioFacuTitle_dtbfEstado}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_bibliografiaBiblCodigo}" for="bibliografiaBiblCodigo" />
+                        <p:selectOneMenu id="bibliografiaBiblCodigo" value="#{detalleBiblioFacuController.selected.bibliografiaBiblCodigo}" required="true" requiredMessage="#{propiedades.CreateDetalleBiblioFacuRequiredMessage_bibliografiaBiblCodigo}" converter="bibliografiaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{bibliografiaController.items}"
+                                           var="bibliografiaBiblCodigoItem"
+                                           itemValue="#{bibliografiaBiblCodigoItem}"
+                                           itemLabel="#{bibliografiaBiblCodigoItem.biblCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_facultadFacuCodigo}" for="facultadFacuCodigo" />
+                        <p:selectOneMenu id="facultadFacuCodigo" value="#{detalleBiblioFacuController.selected.facultadFacuCodigo}" required="true" requiredMessage="#{propiedades.CreateDetalleBiblioFacuRequiredMessage_facultadFacuCodigo}" converter="facultadConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{facultadController.items}"
+                                           var="facultadFacuCodigoItem"
+                                           itemValue="#{facultadFacuCodigoItem}"
+                                           itemLabel="#{facultadFacuCodigoItem.facuCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleBiblioFacuController.saveNew}" value="#{propiedades.Save}" update="display,:DetalleBiblioFacuListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleBiblioFacuCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DetalleBiblioFacuCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

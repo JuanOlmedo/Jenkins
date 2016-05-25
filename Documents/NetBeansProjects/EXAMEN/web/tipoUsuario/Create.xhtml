@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoUsuarioCreateDlg" widgetVar="TipoUsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateTipoUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="TipoUsuarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tipoUsuarioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateTipoUsuarioLabel_tiusNombre}" for="tiusNombre" />
+                        <p:inputText id="tiusNombre" value="#{tipoUsuarioController.selected.tiusNombre}" title="#{propiedades.CreateTipoUsuarioTitle_tiusNombre}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateTipoUsuarioLabel_tiusTiempoReserva}" for="tiusTiempoReserva" />
+                        <p:inputText id="tiusTiempoReserva" value="#{tipoUsuarioController.selected.tiusTiempoReserva}" title="#{propiedades.CreateTipoUsuarioTitle_tiusTiempoReserva}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateTipoUsuarioLabel_tiusTiempoEntrega}" for="tiusTiempoEntrega" />
+                        <p:inputText id="tiusTiempoEntrega" value="#{tipoUsuarioController.selected.tiusTiempoEntrega}" title="#{propiedades.CreateTipoUsuarioTitle_tiusTiempoEntrega}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateTipoUsuarioLabel_tiusValorMulta}" for="tiusValorMulta" />
+                        <p:inputText id="tiusValorMulta" value="#{tipoUsuarioController.selected.tiusValorMulta}" title="#{propiedades.CreateTipoUsuarioTitle_tiusValorMulta}" size="45" maxlength="45"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoUsuarioController.saveNew}" value="#{propiedades.Save}" update="display,:TipoUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoUsuarioCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('TipoUsuarioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

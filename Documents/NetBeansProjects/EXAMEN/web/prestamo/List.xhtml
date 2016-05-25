@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PrestamoListForm">
+
+        <p:panel header="#{propiedades.ListPrestamoTitle}">
+            <p:contextMenu id="PrestamoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('PrestamoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('PrestamoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('PrestamoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('PrestamoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.PrestamoMenuItem_usuarioUserCodigo}" icon="ui-icon-search"  actionListener="#{prestamoController.prepareUsuarioUserCodigo}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty prestamoController.selected.usuarioUserCodigo}"/>  
+                <p:menuitem value="#{propiedades.PrestamoMenuItem_detallePrestamoCollection}" icon="ui-icon-search"  action="#{prestamoController.navigateDetallePrestamoCollection}" disabled="#{empty prestamoController.selected.detallePrestamoCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{prestamoController.items}"
+                         lazy="false"
+                         rowKey="#{item.presCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{prestamoController.selected}">
+                
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PrestamoDataTableContextMenu" listener="#{prestamoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PrestamoDataTableContextMenu" listener="#{prestamoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{prestamoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PrestamoListForm:viewButton').click();"/>
+
+                
+
+
+                <p:column sortBy="#{item.presFechaReserva}" filterBy="#{item.presFechaReserva}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPrestamoTitle_presFechaReserva}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presFechaReserva}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presFechaFinReserva}" filterBy="#{item.presFechaFinReserva}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPrestamoTitle_presFechaFinReserva}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presFechaFinReserva}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presFechaEntrega}" filterBy="#{item.presFechaEntrega}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPrestamoTitle_presFechaEntrega}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presFechaEntrega}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presFechaMaxRecepcion}" filterBy="#{item.presFechaMaxRecepcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPrestamoTitle_presFechaMaxRecepcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presFechaMaxRecepcion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presEstado}" filterBy="#{item.presEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPrestamoTitle_presEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presEstado}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.presObservacion}" filterBy="#{item.presObservacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListPrestamoTitle_presObservacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.presObservacion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.presFechaRecepcion}" filterBy="#{item.presFechaRecepcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListPrestamoTitle_presFechaRecepcion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.presFechaRecepcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.usuarioUserCodigo.userUsername}" filterBy="#{item.usuarioUserCodigo.userUsername}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListPrestamoTitle_usuarioUserCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuarioUserCodigo.userUsername}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{prestamoController.prepareCreate}" update=":PrestamoCreateForm" oncomplete="PF('PrestamoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":PrestamoViewForm" oncomplete="PF('PrestamoViewDialog').show()" disabled="#{empty prestamoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":PrestamoEditForm" oncomplete="PF('PrestamoEditDialog').show()" disabled="#{empty prestamoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{prestamoController.delete}" update=":growl,datalist" disabled="#{empty prestamoController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

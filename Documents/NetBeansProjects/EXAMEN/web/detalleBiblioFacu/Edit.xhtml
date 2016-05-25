@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetalleBiblioFacuEditDlg" widgetVar="DetalleBiblioFacuEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditDetalleBiblioFacuTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleBiblioFacuEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detalleBiblioFacuController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditDetalleBiblioFacuLabel_dtbfCodigo}" for="dtbfCodigo" />
+                        <h:outputText id="dtbfCodigo" value="#{detalleBiblioFacuController.selected.dtbfCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditDetalleBiblioFacuLabel_dtbfStock}" for="dtbfStock" />
+                        <p:inputText id="dtbfStock" value="#{detalleBiblioFacuController.selected.dtbfStock}" title="#{propiedades.EditDetalleBiblioFacuTitle_dtbfStock}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.EditDetalleBiblioFacuLabel_dtbfEstado}" for="dtbfEstado" />
+                        <p:inputText id="dtbfEstado" value="#{detalleBiblioFacuController.selected.dtbfEstado}" title="#{propiedades.EditDetalleBiblioFacuTitle_dtbfEstado}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.EditDetalleBiblioFacuLabel_bibliografiaBiblCodigo}" for="bibliografiaBiblCodigo" />
+                        <p:selectOneMenu id="bibliografiaBiblCodigo" value="#{detalleBiblioFacuController.selected.bibliografiaBiblCodigo}" required="true" requiredMessage="#{propiedades.EditDetalleBiblioFacuRequiredMessage_bibliografiaBiblCodigo}" converter="bibliografiaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{bibliografiaController.items}"
+                                           var="bibliografiaBiblCodigoItem"
+                                           itemValue="#{bibliografiaBiblCodigoItem}"
+                                           itemLabel="#{bibliografiaBiblCodigoItem.biblDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditDetalleBiblioFacuLabel_facultadFacuCodigo}" for="facultadFacuCodigo" />
+                        <p:selectOneMenu id="facultadFacuCodigo" value="#{detalleBiblioFacuController.selected.facultadFacuCodigo}" required="true" requiredMessage="#{propiedades.EditDetalleBiblioFacuRequiredMessage_facultadFacuCodigo}" converter="facultadConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{facultadController.items}"
+                                           var="facultadFacuCodigoItem"
+                                           itemValue="#{facultadFacuCodigoItem}"
+                                           itemLabel="#{facultadFacuCodigoItem.facuCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleBiblioFacuController.save}" value="#{propiedades.Save}" update="display,:DetalleBiblioFacuListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleBiblioFacuEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DetalleBiblioFacuEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

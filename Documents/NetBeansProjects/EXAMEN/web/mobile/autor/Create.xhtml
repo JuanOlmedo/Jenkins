@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AutorCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreateAutorTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AutorListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AutorCreateForm">
+
+                <h:panelGroup id="display" rendered="#{autorController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateAutorLabel_autorNombre}" for="autorNombre" />
+                            <p:inputTextarea rows="4" cols="30" id="autorNombre" value="#{autorController.selected.autorNombre}" title="#{propiedades.CreateAutorTitle_autorNombre}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateAutorLabel_autorDescripcion}" for="autorDescripcion" />
+                            <p:inputText id="autorDescripcion" value="#{autorController.selected.autorDescripcion}" title="#{propiedades.CreateAutorTitle_autorDescripcion}" size="45" maxlength="45"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{autorController.saveNew}" value="#{propiedades.Save}" update="display,:AutorListPage:AutorListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:AutorListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

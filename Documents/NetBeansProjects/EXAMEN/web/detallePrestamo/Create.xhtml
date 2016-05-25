@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallePrestamoCreateDlg" widgetVar="DetallePrestamoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateDetallePrestamoTitle}" closeOnEscape="true">
+
+            <h:form id="DetallePrestamoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detallePrestamoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateDetallePrestamoLabel_detalleEstado}" for="detalleEstado" />
+                        <p:inputText id="detalleEstado" value="#{detallePrestamoController.selected.detalleEstado}" title="#{propiedades.CreateDetallePrestamoTitle_detalleEstado}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDetallePrestamoLabel_detalleBiblioFacuDtbfCodigo}" for="detalleBiblioFacuDtbfCodigo" />
+                        <p:selectOneMenu id="detalleBiblioFacuDtbfCodigo" value="#{detallePrestamoController.selected.detalleBiblioFacuDtbfCodigo}" required="true" requiredMessage="#{propiedades.CreateDetallePrestamoRequiredMessage_detalleBiblioFacuDtbfCodigo}" converter="detalleBiblioFacuConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{detalleBiblioFacuController.items}"
+                                           var="detalleBiblioFacuDtbfCodigoItem"
+                                           itemValue="#{detalleBiblioFacuDtbfCodigoItem}"
+                                           itemLabel="#{detalleBiblioFacuDtbfCodigoItem.dtbfCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateDetallePrestamoLabel_prestamoPresCodigo}" for="prestamoPresCodigo" />
+                        <p:selectOneMenu id="prestamoPresCodigo" value="#{detallePrestamoController.selected.prestamoPresCodigo}" required="true" requiredMessage="#{propiedades.CreateDetallePrestamoRequiredMessage_prestamoPresCodigo}" converter="prestamoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{prestamoController.items}"
+                                           var="prestamoPresCodigoItem"
+                                           itemValue="#{prestamoPresCodigoItem}"
+                                           itemLabel="#{prestamoPresCodigoItem.presCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallePrestamoController.saveNew}" value="#{propiedades.Save}" update="display,:DetallePrestamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallePrestamoCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DetallePrestamoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

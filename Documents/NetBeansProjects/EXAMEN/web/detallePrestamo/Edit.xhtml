@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetallePrestamoEditDlg" widgetVar="DetallePrestamoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditDetallePrestamoTitle}" closeOnEscape="true">
+
+            <h:form id="DetallePrestamoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detallePrestamoController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditDetallePrestamoLabel_deprCodigo}" for="deprCodigo" />
+                        <h:outputText id="deprCodigo" value="#{detallePrestamoController.selected.deprCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditDetallePrestamoLabel_detalleEstado}" for="detalleEstado" />
+                        <p:inputText id="detalleEstado" value="#{detallePrestamoController.selected.detalleEstado}" title="#{propiedades.EditDetallePrestamoTitle_detalleEstado}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{propiedades.EditDetallePrestamoLabel_detalleBiblioFacuDtbfCodigo}" for="detalleBiblioFacuDtbfCodigo" />
+                        <p:selectOneMenu id="detalleBiblioFacuDtbfCodigo" value="#{detallePrestamoController.selected.detalleBiblioFacuDtbfCodigo}" required="true" requiredMessage="#{propiedades.EditDetallePrestamoRequiredMessage_detalleBiblioFacuDtbfCodigo}" converter="detalleBiblioFacuConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{detalleBiblioFacuController.items}"
+                                           var="detalleBiblioFacuDtbfCodigoItem"
+                                           itemValue="#{detalleBiblioFacuDtbfCodigoItem}"
+                                           itemLabel="#{detalleBiblioFacuDtbfCodigoItem.dtbfCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditDetallePrestamoLabel_prestamoPresCodigo}" for="prestamoPresCodigo" />
+                        <p:selectOneMenu id="prestamoPresCodigo" value="#{detallePrestamoController.selected.prestamoPresCodigo}" required="true" requiredMessage="#{propiedades.EditDetallePrestamoRequiredMessage_prestamoPresCodigo}" converter="prestamoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{prestamoController.items}"
+                                           var="prestamoPresCodigoItem"
+                                           itemValue="#{prestamoPresCodigoItem}"
+                                           itemLabel="#{prestamoPresCodigoItem.presCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallePrestamoController.save}" value="#{propiedades.Save}" update="display,:DetallePrestamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallePrestamoEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DetallePrestamoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

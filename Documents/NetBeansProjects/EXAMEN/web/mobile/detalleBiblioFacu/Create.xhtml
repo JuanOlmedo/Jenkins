@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DetalleBiblioFacuCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreateDetalleBiblioFacuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DetalleBiblioFacuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DetalleBiblioFacuCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalleBiblioFacuController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_dtbfStock}" for="dtbfStock" />
+                            <p:inputText id="dtbfStock" value="#{detalleBiblioFacuController.selected.dtbfStock}" title="#{propiedades.CreateDetalleBiblioFacuTitle_dtbfStock}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_dtbfEstado}" for="dtbfEstado" />
+                            <p:inputText id="dtbfEstado" value="#{detalleBiblioFacuController.selected.dtbfEstado}" title="#{propiedades.CreateDetalleBiblioFacuTitle_dtbfEstado}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_bibliografiaBiblCodigo}" for="bibliografiaBiblCodigo" />
+                            <p:selectOneMenu id="bibliografiaBiblCodigo" value="#{detalleBiblioFacuController.selected.bibliografiaBiblCodigo}" required="true" requiredMessage="#{propiedades.CreateDetalleBiblioFacuRequiredMessage_bibliografiaBiblCodigo}" converter="bibliografiaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{bibliografiaController.items}"
+                                               var="bibliografiaBiblCodigoItem"
+                                               itemValue="#{bibliografiaBiblCodigoItem}"
+                                               itemLabel="#{bibliografiaBiblCodigoItem.biblDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateDetalleBiblioFacuLabel_facultadFacuCodigo}" for="facultadFacuCodigo" />
+                            <p:selectOneMenu id="facultadFacuCodigo" value="#{detalleBiblioFacuController.selected.facultadFacuCodigo}" required="true" requiredMessage="#{propiedades.CreateDetalleBiblioFacuRequiredMessage_facultadFacuCodigo}" converter="facultadConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{facultadController.items}"
+                                               var="facultadFacuCodigoItem"
+                                               itemValue="#{facultadFacuCodigoItem}"
+                                               itemLabel="#{facultadFacuCodigoItem.facuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{detalleBiblioFacuController.saveNew}" value="#{propiedades.Save}" update="display,:DetalleBiblioFacuListPage:DetalleBiblioFacuListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:DetalleBiblioFacuListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

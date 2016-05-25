@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PrestamoViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewPrestamoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PrestamoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PrestamoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{prestamoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presCodigo}"/>
+                            <h:outputText value="#{prestamoController.selected.presCodigo}" title="#{propiedades.ViewPrestamoTitle_presCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presFechaReserva}"/>
+                            <h:outputText value="#{prestamoController.selected.presFechaReserva}" title="#{propiedades.ViewPrestamoTitle_presFechaReserva}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presFechaFinReserva}"/>
+                            <h:outputText value="#{prestamoController.selected.presFechaFinReserva}" title="#{propiedades.ViewPrestamoTitle_presFechaFinReserva}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presFechaEntrega}"/>
+                            <h:outputText value="#{prestamoController.selected.presFechaEntrega}" title="#{propiedades.ViewPrestamoTitle_presFechaEntrega}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presFechaMaxRecepcion}"/>
+                            <h:outputText value="#{prestamoController.selected.presFechaMaxRecepcion}" title="#{propiedades.ViewPrestamoTitle_presFechaMaxRecepcion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presEstado}"/>
+                            <h:outputText value="#{prestamoController.selected.presEstado}" title="#{propiedades.ViewPrestamoTitle_presEstado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presObservacion}"/>
+                            <h:outputText value="#{prestamoController.selected.presObservacion}" title="#{propiedades.ViewPrestamoTitle_presObservacion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_presFechaRecepcion}"/>
+                            <h:outputText value="#{prestamoController.selected.presFechaRecepcion}" title="#{propiedades.ViewPrestamoTitle_presFechaRecepcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPrestamoLabel_usuarioUserCodigo}"/>
+                            <h:outputText value="#{prestamoController.selected.usuarioUserCodigo.userUsername}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

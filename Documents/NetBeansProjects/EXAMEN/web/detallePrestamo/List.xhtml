@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetallePrestamoListForm">
+
+        <p:panel header="#{propiedades.ListDetallePrestamoTitle}">
+            <p:contextMenu id="DetallePrestamoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('DetallePrestamoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('DetallePrestamoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('DetallePrestamoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('DetallePrestamoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.DetallePrestamoMenuItem_detalleBiblioFacuDtbfCodigo}" icon="ui-icon-search"  actionListener="#{detallePrestamoController.prepareDetalleBiblioFacuDtbfCodigo}" update=":DetalleBiblioFacuViewForm" oncomplete="PF('DetalleBiblioFacuViewDialog').show()" disabled="#{empty detallePrestamoController.selected.detalleBiblioFacuDtbfCodigo}"/>  
+                <p:menuitem value="#{propiedades.DetallePrestamoMenuItem_prestamoPresCodigo}" icon="ui-icon-search"  actionListener="#{detallePrestamoController.preparePrestamoPresCodigo}" update=":PrestamoViewForm" oncomplete="PF('PrestamoViewDialog').show()" disabled="#{empty detallePrestamoController.selected.prestamoPresCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detallePrestamoController.items}"
+                         lazy="false"
+                         rowKey="#{item.deprCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detallePrestamoController.selected}">
+                
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetallePrestamoDataTableContextMenu" listener="#{detallePrestamoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetallePrestamoDataTableContextMenu" listener="#{detallePrestamoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{detallePrestamoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetallePrestamoListForm:viewButton').click();"/>
+
+               
+
+
+                <p:column sortBy="#{item.detalleEstado}" filterBy="#{item.detalleEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDetallePrestamoTitle_detalleEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detalleEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.detalleBiblioFacuDtbfCodigo.dtbfCodigo}" filterBy="#{item.detalleBiblioFacuDtbfCodigo.dtbfCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDetallePrestamoTitle_detalleBiblioFacuDtbfCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detalleBiblioFacuDtbfCodigo.dtbfCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.prestamoPresCodigo.presCodigo}" filterBy="#{item.prestamoPresCodigo.presCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDetallePrestamoTitle_prestamoPresCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prestamoPresCodigo.presCodigo}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{detallePrestamoController.prepareCreate}" update=":DetallePrestamoCreateForm" oncomplete="PF('DetallePrestamoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":DetallePrestamoViewForm" oncomplete="PF('DetallePrestamoViewDialog').show()" disabled="#{empty detallePrestamoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":DetallePrestamoEditForm" oncomplete="PF('DetallePrestamoEditDialog').show()" disabled="#{empty detallePrestamoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{detallePrestamoController.delete}" update=":growl,datalist" disabled="#{empty detallePrestamoController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
